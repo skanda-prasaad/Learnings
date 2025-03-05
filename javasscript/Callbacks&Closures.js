@@ -1,58 +1,61 @@
-// function callerfnc(fn){
-//     // setTimeout(fn,3000)
+// 1st :
+// function caller(fn){
+//     setTimeout(fn,3000);
 // }
-
-// callerfnc(function(){
-//     // console.log("Hey")
+// caller(function(){
+//     console.log("Print after 3 seconds")
 // })
 
-// Implemention of own map
+//2nd:
+// Implementation of own map function:
 
-let arr = [1,2,3,4,5,6];
+// function ownMap(arr, fn){
+//     let newarr = [];
+//     for(let i = 0; i < arr.length; i++){
+//         newarr.push(fn(arr[i]));
+//     }
+//     return newarr
+// }
+// let arr = [1,2,3,4,5,6];
 
-function mapcopy(arr, fn){
-    let newarr = [];
-    for(let i = 0; i < arr.length; i++){
-        newarr.push(fn(arr[i]));
-    }
-    return newarr;
-}
+// let mapCaller = ownMap(arr,function(value){
+//     return value + 3;
+// }) 
 
-let ans = mapcopy(arr, function(value){
-    return value+2;
-})
-
-// console.log(ans);
+// console.log(mapCaller);
 
 
-// function to craete a counter using closure
+// 3rd:
+// function counter(){
+//     let count = 1;
+//     return function(){
+//         return count++;
+//     }
+// }
 
-function counter(){
-    let count = 0;
+// let count = counter();
+// console.log(count());
+// console.log(count());
+// console.log(count());
+
+//4:
+
+function limiter(fn, limit){
+    let count  = 0;
     return function(){
-        count++;
-        console.log(count);
-    }
-}
-
-let makecount = counter();
-// makecount();
-
-function fnlimiter(fn, limit){
-    let totalcalled = 0;
-    return function(){
-        if(totalcalled < limit){
-            totalcalled++;
-            fn();
+        if(count < limit){
+            console.log(`counter: ${count}`)
+            count++
+            fn()
         }
     }
 }
 
-let limiter = fnlimiter(function(){
-    console.log("hi");
-}, 3);
+let limit = limiter(function(){
+    console.log("Limiter")
+},3)
 
-limiter()
-limiter()
-limiter()
-limiter()
+limit()
+limit()
+limit()
+limit()
